@@ -1,0 +1,49 @@
+<div class="container mt-5">
+  <h2 class="mb-4">Filtrar Dados</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="optionSelect" class="form-label">Selecione uma opção:</label>
+      <select id="optionSelect" class="form-select" formControlName="selectedOption">
+        <!-- Sintaxe correta com @for -->
+        @for (option of options; track option.value) {
+          <option [value]="option.value">
+            {{ option.label }}
+          </option>
+        }
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="dateInput" class="form-label">Selecione uma data:</label>
+      <input id="dateInput" type="date" class="form-control" formControlName="selectedDate" />
+    </div>
+
+    <button type="submit" class="btn btn-primary me-2" [disabled]="isListening">Iniciar Escuta</button>
+    @if (isListening) {
+      <button type="button" class="btn btn-danger" (click)="stopListening()">Encerrar Escuta</button>
+    }
+  </form>
+
+  <!-- Sintaxe correta com @if -->
+  @if (responseData.length > 0) {
+    <div>
+      <h3>Dados Recebidos</h3>
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th>Peso</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Sintaxe correta com @for -->
+          @for (item of responseData; track item.peso) {
+            <tr>
+              <td>{{ item.peso }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>
